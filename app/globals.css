@@ -2,32 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.tree {
+  @apply flex  justify-center mt-8 overflow-auto whitespace-nowrap
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.node {
+  @apply flex flex-col items-center relative
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.children {
+  @apply flex p-5 space-x-10 transition-all ease-in delay-75;
+  border-top: 4px solid #dcdcdc;
+
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.value {
+  @apply p-2 bg-lime-300 hover:bg-lime-400 cursor-pointer rounded-md leading-4 text-base transition-all ease-in delay-75
+}
+
+.value:hover ~ .children .value::before {
+  @apply bg-gray-500
+}
+
+.value:hover ~ .children,
+.value:hover ~ .children .children {
+  @apply border-t-gray-500
+}
+
+
+.value:hover ~ .bottomLine,
+.value:hover ~ .children .bottomLine {
+  @apply bg-gray-500
+}
+
+.node:not(.root) > .value::before {
+  content: '';
+  @apply h-5 w-1 bg-[#dcdcdc] block absolute left-0 right-0 m-auto -top-5 transition-all ease-in delay-75
+}
+
+.bottomLine {
+  @apply h-5 w-1 bg-[#dcdcdc] transition-all ease-in delay-75
+}
+
+.button {
+  @apply px-2 py-1 rounded-md bg-lime-300
 }
