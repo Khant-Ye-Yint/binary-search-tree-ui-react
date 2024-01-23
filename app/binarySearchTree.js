@@ -5,7 +5,17 @@ const Node = ({ node }) => {
     ''
   ) : (
     <>
-      <div className="value" id={data} onClick={() => alert(data)}>
+      <div
+        className="value"
+        id={data}
+        onClick={() =>
+          alert(
+            `value : ${data}, left: ${left ? left.data : null}, right: ${
+              right ? right.data : null
+            }`
+          )
+        }
+      >
         {data}
       </div>
 
