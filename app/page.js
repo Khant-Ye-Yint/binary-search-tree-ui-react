@@ -9,14 +9,13 @@ const Home = () => {
   const [dummy, setDummy] = useState(true);
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-[100vh] ">
-      <h1 className=" font-bold flex justify-center items-center text-4xl text-center min-h-[10vh]">
+    <div className="min-h-[80vh]">
+      <h1 className="text-xl font-semibold text-start">
         Binary Search Tree UI
       </h1>
-      <Actions setDummy={setDummy} dummy={dummy} />
-      <BinarySearchTree bst={bst} />
-      <div className="flex justify-center items-center min-h-[10vh]">
-        Footer :)
+      <div className="flex flex-col items-center">
+        <Actions setDummy={setDummy} dummy={dummy} />
+        <BinarySearchTree bst={bst} />
       </div>
     </div>
   );
