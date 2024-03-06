@@ -7,9 +7,10 @@ import Actions from './Actions';
 
 const Home = () => {
   const [keys, setKeys] = useState([]);
-  const [probabilities, setProbabilities] = useState([]);
+  const [frequencies, setFrequencies] = useState([]);
   const [dummy, setDummy] = useState(true);
   const [tree, setTree] = useState({});
+  const [cost, setCost] = useState(null);
 
   return (
     <div className="min-h-[80vh]">
@@ -20,15 +21,17 @@ const Home = () => {
         <Actions
           keys={keys}
           setKeys={setKeys}
-          probabilities={probabilities}
-          setProbabilities={setProbabilities}
+          frequencies={frequencies}
+          setFrequencies={setFrequencies}
           dummy={dummy}
           setDummy={setDummy}
           tree={tree}
           setTree={setTree}
+          setCost={setCost}
         />
         <BinaryTree tree={tree} />
       </div>
+      <h1 className="text-center">{cost && `Minimal Cost : ${cost}`}</h1>
     </div>
   );
 };

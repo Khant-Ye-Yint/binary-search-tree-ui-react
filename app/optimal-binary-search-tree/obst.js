@@ -1,11 +1,11 @@
-function optimalBST(keys, probabilities) {
+function optimalBST(keys, frequencies) {
   const n = keys.length;
   const cost = new Array(n).fill().map(() => new Array(n).fill(0));
   const rootIndex = new Array(n).fill().map(() => new Array(n).fill(0));
 
   // Initialize cost table for one-node subtrees
   for (let i = 0; i < n; i++) {
-    cost[i][i] = probabilities[i];
+    cost[i][i] = frequencies[i];
   }
 
   // Dynamic Programming to fill the cost table
@@ -13,7 +13,7 @@ function optimalBST(keys, probabilities) {
     for (let i = 0; i <= n - l; i++) {
       let j = i + l - 1;
       cost[i][j] = Infinity;
-      let subtreeProb = probabilities
+      let subtreeProb = frequencies
         .slice(i, j + 1)
         .reduce((acc, val) => acc + val, 0);
       for (let r = i; r <= j; r++) {
@@ -29,7 +29,10 @@ function optimalBST(keys, probabilities) {
   }
 
   // Reconstruct the optimal binary search tree
-  return reconstructTree(keys, 0, n - 1, rootIndex);
+  return {
+    root: reconstructTree(keys, 0, n - 1, rootIndex),
+    cost: cost[0][n - 1],
+  };
 }
 
 function reconstructTree(keys, start, end, rootIndex) {
@@ -46,10 +49,3 @@ function reconstructTree(keys, start, end, rootIndex) {
 }
 
 export { optimalBST };
-
-// const keys = [1, 2, 3];
-// const probabilities = [0.2, 0.3, 0.1];
-// const dummyKeys = [0, 4];
-// const dummyProbabilities = [0.05, 0.05];
-// const root = optimalBST(keys, probabilities, dummyKeys, dummyProbabilities);
-// console.log(root);

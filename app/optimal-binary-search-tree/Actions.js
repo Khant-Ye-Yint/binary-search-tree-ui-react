@@ -5,20 +5,15 @@ import { optimalBST } from './obst';
 const Actions = ({
   keys,
   setKeys,
-  probabilities,
-  setProbabilities,
-  dummyKeys,
-  setdummyKeys,
-  dummyProbabilities,
-  setdummyProbabilities,
+  frequencies,
+  setFrequencies,
   dummy,
   setDummy,
   setTree,
+  setCost,
 }) => {
   const keyRef = useRef();
-  const probabilitiesRef = useRef();
-  const dummyKeysRef = useRef();
-  const dummyProbabilitiesRef = useRef();
+  const frequenciesRef = useRef();
 
   const pushIntoArrayAndUpdate = (arr, ref, updateFunction) => {
     const dummyArr = arr;
@@ -30,13 +25,15 @@ const Actions = ({
 
   const resetHandler = () => {
     setKeys([]);
-    setProbabilities([]);
+    setFrequencies([]);
     setTree({});
+    setCost(null);
     setDummy(!dummy);
   };
 
   const generateTree = () => {
-    const root = optimalBST(keys, probabilities);
+    const { root, cost } = optimalBST(keys, frequencies);
+    setCost(cost);
     setTree(root);
     setDummy(!dummy);
   };
@@ -56,18 +53,14 @@ const Actions = ({
           </div>
         </div>
 
-        <input className="border-2 border-lime-400" ref={probabilitiesRef} />
+        <input className="border-2 border-lime-400" ref={frequenciesRef} />
         <button
           className="button"
           onClick={() =>
-            pushIntoArrayAndUpdate(
-              probabilities,
-              probabilitiesRef,
-              setProbabilities
-            )
+            pushIntoArrayAndUpdate(frequencies, frequenciesRef, setFrequencies)
           }
         >
-          Add Probabilities
+          Add Frequencies
         </button>
         <button className="button" onClick={resetHandler}>
           Reset
@@ -81,8 +74,7 @@ const Actions = ({
           Keys: [{keys.map((key) => `${key},`)}]
         </h1>
         <h1 className="text-lg font-semibold ">
-          Probabilities: [
-          {probabilities.map((probability) => `${probability},`)}]
+          Frequencies: [{frequencies.map((frequency) => `${frequency},`)}]
         </h1>
       </div>
     </div>
